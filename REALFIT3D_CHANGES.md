@@ -192,7 +192,7 @@ keys. We replaced the Actor02-only training paths with subject/sequence argument
 added output protection, and connected the renderer used by RealFit3D.
 This changes rendered transparency, not cloth mechanics or material refraction.
 Source file hashes and GPU test results are recorded in the
-[integration record](https://github.com/CasualBrave/realfit3d/blob/main/docs/OPACITY_INTEGRATION_20261020.md).
+[integration record](https://github.com/Realfit3D/realfit3d/blob/main/docs/OPACITY_INTEGRATION_20261020.md).
 
 ## Version and Validation
 
@@ -205,4 +205,4 @@ Full body fitting and cloth simulation are separate acceptance tests.
 Retraining the generalized V3 entry requires the complete Stage 2 training assets.
 
 For development and version updates, see
-[RealFit3D's development guide](https://github.com/CasualBrave/realfit3d/blob/main/docs/DEVELOPMENT.md).
+[RealFit3D's development guide](https://github.com/Realfit3D/realfit3d/blob/main/docs/DEVELOPMENT.md).

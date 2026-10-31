@@ -166,7 +166,7 @@ python render_turntable.py \
 本次將固定 Actor02 的訓練路徑改為 subject／sequence 參數，加入輸出保護，
 並接到 RealFit3D 使用的渲染入口。這項控制改變畫面透明度，不改變布料力學或模擬材質折射。
 來源檔案雜湊與 GPU 實測結果記於
-[接入紀錄](https://github.com/CasualBrave/realfit3d/blob/main/docs/OPACITY_INTEGRATION_20261020.md)。
+[接入紀錄](https://github.com/Realfit3D/realfit3d/blob/main/docs/OPACITY_INTEGRATION_20261020.md)。
 
 ## 版本與測試
 
@@ -177,4 +177,4 @@ python render_turntable.py \
 原始／V3 端點及半透明圖像。人體擬合與布料模擬另作完整流程驗收；
 重新訓練 V3 需要完整 Stage 2 訓練資料。
 
-版本更新方式見 [RealFit3D 開發流程](https://github.com/CasualBrave/realfit3d/blob/main/docs/DEVELOPMENT.md)。
+版本更新方式見 [RealFit3D 開發流程](https://github.com/Realfit3D/realfit3d/blob/main/docs/DEVELOPMENT.md)。

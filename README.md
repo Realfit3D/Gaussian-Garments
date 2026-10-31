@@ -3,13 +3,13 @@
 ## About This Fork
 
 This is an integration fork of [eth-ait/Gaussian-Garments](https://github.com/eth-ait/Gaussian-Garments),
-used as a pinned Git submodule by [RealFit3D](https://github.com/CasualBrave/realfit3d).
+used as a pinned Git submodule by [RealFit3D](https://github.com/Realfit3D/realfit3d).
 It adds preview rendering, configurable data paths, input checks, and V3 opacity
 training and rendering. V3 requires a matching controller for each garment.
 
 For the baseline, detailed changes, provenance, and limitations, see:
 [English](REALFIT3D_CHANGES.md) | [Traditional Chinese](REALFIT3D_CHANGES.zh-TW.md).
-For the website and integrated workflow, start with [RealFit3D](https://github.com/CasualBrave/realfit3d).
+For the website and integrated workflow, start with [RealFit3D](https://github.com/Realfit3D/realfit3d).
 
 ## Original Upstream Documentation
 
