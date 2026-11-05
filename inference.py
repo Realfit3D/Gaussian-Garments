@@ -245,9 +245,10 @@ class Doll(MeshGaussianModel):
 
             stage3_path = _tmp / DEFAULTS.stage3
             avatar.load_ckpt(stage3_path, load_optm=False)
+            gaussian.update_face_coor()
             self.avatar_nets.append(avatar)
 
-
+        self.opacity_control.bind_canonical(self.garments)
         self.body = None
 
     def update_garments(self, vert_list, ambient_list, normal_list, camera):

@@ -112,7 +112,13 @@ V3 則把原始 opacity 與正規化後的初始位置送入小型神經網路�
 產生八個正值且總和為一的權重。這些權重組成隨控制值單調變化的分段線性函數，
 再以 `1 - (1 - alpha)^m(s)` 調整每顆 Gaussian 的 opacity，交給原有光柵化步驟產生畫面。
 `s=0` 隱藏衣物，`s=1` 精確保留原本 Gaussian opacity。
-同一次渲染共用一個控制值，但每件衣物各自載入對應的 V3 權重。
+同一次渲染的指定衣物共用一個控制值，各自載入對應的 V3 權重。
+`--opacity-garments Actor02_upper` 只改上衣，省略此參數則作用於整套。
+未指定的衣物保留原始 opacity。
+
+`Doll` 載入 Stage 3 後，更新模板面座標並保存 Gaussian 位置的獨立副本。
+V3 用 checkpoint 的中心與尺度正規化這份固定參考座標；模擬會更新實際渲染幾何，
+不會移動控制器的參考位置。載入 checkpoint 後才保存，可包含已訓練的 Gaussian 偏移。
 
 訓練時先固定 Stage 3 模型，渲染原始 alpha 圖 A1，再抽取控制值 s，
 將 s × A1 當作目標。Controller 調整每顆 Gaussian 的 opacity，

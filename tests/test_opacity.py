@@ -80,6 +80,7 @@ class OpacityTests(unittest.TestCase):
         self.checkpoint("shirt")
         self.checkpoint("pants", "opacity_controller_v3_valid_cameras")
         control = GarmentOpacity(self.args("v3", .4), ["pants", "shirt"], self.root, "cpu")
+        control.bind_canonical(self.garments)
         actual = control.apply(self.garments)
         self.assertEqual(tuple(actual.shape), (44, 1))
         expected = torch.cat([SplineOpacityController()(g.get_opacity, g.get_xyz, .4)[0] for g in self.garments])
@@ -97,6 +98,32 @@ class OpacityTests(unittest.TestCase):
             path = self.checkpoint(**changes)
             with self.assertRaises(ValueError):
                 load_v3(path, "cpu", subject="shirt")
+
+    def test_v3_coordinates_remain_fixed_during_motion(self):
+        path = self.checkpoint()
+        data = torch.load(path, weights_only=True)
+        data["controller"]["net.4.weight"].normal_(0, .5)
+        torch.save(data, path)
+        control = GarmentOpacity(self.args("v3", .4), ["shirt"], self.root, "cpu")
+        garments = self.garments[:1]
+        with self.assertRaises(RuntimeError):
+            control.apply(garments)
+        control.bind_canonical(garments)
+        before = control.apply(garments)
+        garments[0].get_xyz.add_(100)
+        torch.testing.assert_close(control.apply(garments), before, rtol=0, atol=0)
+
+    def test_targeted_v3_leaves_other_garment_unchanged(self):
+        self.checkpoint("shirt")
+        args = self.args("v3", .4)
+        args.opacity_garments = ["shirt"]
+        control = GarmentOpacity(args, ["pants", "shirt"], self.root, "cpu")
+        control.bind_canonical(self.garments)
+        result = control.apply(self.garments)
+        torch.testing.assert_close(result[:31], self.garments[0].get_opacity)
+        with self.assertRaises(ValueError):
+            args.opacity_garments = ["missing"]
+            GarmentOpacity(args, ["pants", "shirt"], self.root, "cpu")
 
     def test_missing_ambiguous_or_incorrect_mapping(self):
         with self.assertRaises(ValueError):

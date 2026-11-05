@@ -128,7 +128,15 @@ canonical position and produces eight positive, normalized weights. These define
 a monotonic piecewise-linear function of the requested scale; its output changes
 the Gaussian opacity through `1 - (1 - alpha)^m(s)` before the same rasterization
 step. `s=0` hides the garments; `s=1` preserves their original opacity exactly.
-One scale applies to all garments in the trajectory; each garment has its own V3 weights.
+One scale applies to the selected garments; each selected garment has its own V3 weights.
+`--opacity-garments Actor02_upper` changes only that garment; omitting the flag selects
+the whole outfit. Unselected garments retain their original opacity.
+
+After loading Stage 3, `Doll` updates the template face coordinates and captures
+a detached copy of its Gaussian positions. V3 normalizes this fixed reference
+with the controller checkpoint's center and scale. Simulation updates the rendered
+geometry but does not move the controller's reference coordinates. Capturing after
+checkpoint loading includes the learned Gaussian offsets.
 
 Training freezes the Stage 3 model and renders its original alpha image A1.
 For a sampled control value s, the target is s times A1. The controller changes
